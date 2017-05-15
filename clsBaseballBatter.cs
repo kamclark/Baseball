@@ -17,6 +17,8 @@ public class clsBaseballBatter
     public const int RATING_INCREASE_MULTIPLIER = 4000; // 
     // =============== static members =======================
     static Random random = new Random();
+    static Random randomFlavorNumber = new Random();
+
 
     // =============== instance members =====================
     private int atBatResult;
@@ -35,8 +37,12 @@ public class clsBaseballBatter
     public int Swing()
     {
         // Generate and display random number for at bat chance.
-        Random randomNumber = new Random();
+        //Random randomNumber = new Random();
+
+        // declare random number for use in flavor text generation
+
         double hitRandomResult = random.Next(0, (STRIKEOUT_PROBABILITY_BOUND + OUT_PROBABILITY_BOUND) - RATING_INCREASE_MULTIPLIER * 1);
+        int flavorTxtNumber = randomFlavorNumber.Next(0, 3);
 
         // -------------------------probability of triple----------------------
         if (hitRandomResult < TRIPLE_PROBABILITY_BOUND && hitRandomResult >= 0)

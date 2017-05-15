@@ -933,11 +933,12 @@ public class frmMain : Form
 	//  declare variable to return random result of at bat
 	string swingResult;
 
-
 	// declare counters for flavor text stats
 	int hitStreakCounter = 0;
 	int lastFiveAB = 0;
 	int lastTenAB = 0;
+
+	static Random randomFlavorNumber = new Random();
 
 	bool milestoneComing = false;
 	bool milestoneHere = false;
@@ -1093,8 +1094,7 @@ public class frmMain : Form
 				+ hitStreakCounter.ToString() + " at bats!";
 		}
 
-
-        // check for proximity to statistical milestones
+		// check for proximity to statistical milestones
 		else if (hits == 3 || hits == 8 || hits == 499 || hits == 749)
 		{
 			milestoneComing = true;
@@ -1191,6 +1191,8 @@ public class frmMain : Form
 		txtPowerRating.Text = (newBatter.PowerRating + HIDDEN_RATING).ToString();
 		txtSpeedRating.Text = (newBatter.SpeedRating + HIDDEN_RATING).ToString();
 		txtEyeRating.Text = (newBatter.EyeRating + HIDDEN_RATING).ToString();
+		int flavorTxtNumber = randomFlavorNumber.Next(0, 3);
+
 
 		if (plateAppearances >= 7999) // game ends after 8000 plate appearances
 		{
@@ -1203,7 +1205,33 @@ public class frmMain : Form
 				plateAppearances++;
 				singles++;
 				hitStreakCounter++;
-				swingResult = "That's a single for " + batterName + ".";
+				// determine random flavor text
+				if (flavorTxtNumber == 0)
+				{
+					swingResult = "That's a sharply grounded single down the first base line for " + batterName + ".";
+				}
+
+				else if (flavorTxtNumber == 1)
+				{
+					swingResult = String.Format("{0} hits a slow roller towards 3rd and squeezes out an infield single.",
+					batterName);
+				}
+
+				else if (flavorTxtNumber == 2)
+				{
+					swingResult = "That's a tough single for " + batterName + ".";
+				}
+
+				else if (flavorTxtNumber == 3)
+				{
+					swingResult = "That's a hot single for " + batterName + ".";
+				}
+
+				else
+				{
+					swingResult = "That's a single for " + batterName + ".";
+				}
+
 				GetStats();
 				DisplayStats();
 				GenerateFlavorText();
